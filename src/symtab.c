@@ -344,27 +344,16 @@ void cleanSymTab(void)
 	freeType(charType);
 }
 
-/**
- * @brief cập nhật giá trị scope
- * @param scope
- */
 void enterBlock(Scope* scope)
 {
 	symtab->currentScope = scope;
 }
 
-/**
- * @brief khi kết thúc duyệt một hàm hay thủ tục, chuyển currentScope ra ngoài
- */
 void exitBlock(void)
 {
 	symtab->currentScope = symtab->currentScope->outer;
 }
 
-/**
- * @brief đăng ký một đối tượng vào block hiện tại
- * @param obj đối tượng
- */
 void declareObject(Object* obj)
 {
 	if (obj->kind == OBJ_PARAMETER)

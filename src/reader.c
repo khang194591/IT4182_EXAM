@@ -11,10 +11,6 @@ FILE* inputStream;
 int lineNo, colNo;
 int currentChar;
 
-/**
- * @brief Đọc vào một ký tự từ inputStream
- * @return Mã ASCII của ký tự
- */
 int readChar(void)
 {
 	currentChar = getc(inputStream);
@@ -27,11 +23,6 @@ int readChar(void)
 	return currentChar;
 }
 
-/**
- * @brief Mở file
- * @param fileName tên file
- * @return IO_SUCCESS nếu thành công, ngược lại IO_ERROR
- */
 int openInputStream(char* fileName)
 {
 	inputStream = fopen(fileName, "rt");
@@ -43,9 +34,6 @@ int openInputStream(char* fileName)
 	return IO_SUCCESS;
 }
 
-/**
- * @brief Đóng file
- */
 void closeInputStream()
 {
 	fclose(inputStream);

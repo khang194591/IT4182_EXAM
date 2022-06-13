@@ -10,88 +10,23 @@
 #define MAX_IDENT_LEN 15
 #define KEYWORDS_COUNT 20
 
-// Các kiểu token
 typedef enum
 {
-	// Token none
-	TK_NONE,
-	// Token định danh
-	TK_IDENT,
-	// Token số
-	TK_NUMBER,
-	// Token ký tự
-	TK_CHAR,
-	// Token hết file
-	TK_EOF,
+	TK_NONE, TK_IDENT, TK_NUMBER, TK_CHAR, TK_EOF,
 
-	// keyword PROGRAM
-	KW_PROGRAM,
-	// keyword CONST
-	KW_CONST,
-	// keyword TYPE
-	KW_TYPE,
-	// keyword VAR
-	KW_VAR,
-	// keyword INTEGER
-	KW_INTEGER,
-	// keyword CHAR
-	KW_CHAR,
-	KW_ARRAY,
-	KW_OF,
-	KW_FUNCTION,
-	KW_PROCEDURE,
-	KW_BEGIN,
-	KW_END,
-	KW_CALL,
-	KW_IF,
-	KW_THEN,
-	KW_ELSE,
-	KW_WHILE,
-	KW_DO,
-	KW_FOR,
-	KW_TO,
+	KW_PROGRAM, KW_CONST, KW_TYPE, KW_VAR,
+	KW_INTEGER, KW_CHAR, KW_ARRAY, KW_OF,
+	KW_FUNCTION, KW_PROCEDURE,
+	KW_BEGIN, KW_END, KW_CALL,
+	KW_IF, KW_THEN, KW_ELSE,
+	KW_WHILE, KW_DO, KW_FOR, KW_TO,
 
-	// Ký hiệu ';'
-	SB_SEMICOLON,
-	// Ký hiệu ':'
-	SB_COLON,
-	// Ký hiệu '.'
-	SB_PERIOD,
-	// Ký hiệu ','
-	SB_COMMA,
-	// Ký hiệu ':='
-	SB_ASSIGN,
-	// Ký hiệu '='
-	SB_EQ,
-	// Ký hiệu '!='
-	SB_NEQ,
-	// Ký hiệu '<'
-	SB_LT,
-	// Ký hiệu'<='
-	SB_LE,
-	// Ký hiệu '>'
-	SB_GT,
-	// Ký hiệu '>='
-	SB_GE,
-	// Ký hiệu '+'
-	SB_PLUS,
-	// Ký hiệu '-'
-	SB_MINUS,
-	// Ký hiệu '*'
-	SB_TIMES,
-	// Ký hiệu '/'
-	SB_SLASH,
-	// Ký hiệu '('
-	SB_LPAR,
-	// Ký hiệu ')'
-	SB_RPAR,
-	// Ký hiệu '(.'
-	SB_LSEL,
-	// Ký hiệu '.)'
-	SB_RSEL
+	SB_SEMICOLON, SB_COLON, SB_PERIOD, SB_COMMA,
+	SB_ASSIGN, SB_EQ, SB_NEQ, SB_LT, SB_LE, SB_GT, SB_GE,
+	SB_PLUS, SB_MINUS, SB_TIMES, SB_SLASH,
+	SB_LPAR, SB_RPAR, SB_LSEL, SB_RSEL
 } TokenType;
 
-// Token
 typedef struct
 {
 	char string[MAX_IDENT_LEN + 1];

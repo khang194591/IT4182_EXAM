@@ -13,18 +13,13 @@
 #include "error.h"
 #include "debug.h"
 
-// Token vừa đọc
 Token* currentToken;
-// Token xem trước
 Token* lookAhead;
 
 extern Type* intType;
 extern Type* charType;
 extern SymTab* symtab;
 
-/**
- * @brief đọc token tiếp theo
- */
 void scan(void)
 {
 	Token* tmp = currentToken;
@@ -33,23 +28,16 @@ void scan(void)
 	free(tmp);
 }
 
-/**
- * @brief duyệt ký hiệu kết thúc
- * @param tokenType kiểu token
- */
 void eat(TokenType tokenType)
 {
 	if (lookAhead->tokenType == tokenType)
 	{
-//		printToken(lookAhead);
+		//    printToken(lookAhead);
 		scan();
 	}
 	else missingToken(tokenType, lookAhead->lineNo, lookAhead->colNo);
 }
 
-/**
- * @brief duyệt ký hiệu không kết thúc
- */
 void compileProgram(void)
 {
 	Object* program;
@@ -68,7 +56,6 @@ void compileProgram(void)
 	exitBlock();
 }
 
-// Các đối tượng hàng số được tạo ra và khai báo ở đây
 void compileBlock(void)
 {
 	Object* constObj;
@@ -99,7 +86,6 @@ void compileBlock(void)
 	else compileBlock2();
 }
 
-// Các đối tượng kiểu được tạo ra và khai báo ở đây
 void compileBlock2(void)
 {
 	Object* typeObj;
@@ -130,7 +116,6 @@ void compileBlock2(void)
 	else compileBlock3();
 }
 
-// Đối tượng biến được tạo ra và khai báo ở đây
 void compileBlock3(void)
 {
 	Object* varObj;
@@ -184,7 +169,6 @@ void compileSubDecls(void)
 	}
 }
 
-// Các đối tượng hàm được tạo ra và khai báo ở đây
 void compileFuncDecl(void)
 {
 	Object* funcObj;
@@ -212,7 +196,6 @@ void compileFuncDecl(void)
 	exitBlock();
 }
 
-// Các đối tượng thủ tục được tạo ra và khai báo ở đây
 void compileProcDecl(void)
 {
 	Object* procObj;
@@ -359,7 +342,7 @@ Type* compileType(void)
 
 Type* compileBasicType(void)
 {
-	Type* type = NULL;
+	Type* type;
 
 	switch (lookAhead->tokenType)
 	{
@@ -393,7 +376,6 @@ void compileParams(void)
 	}
 }
 
-// Các đối tượng tham số hình thức được tạo ra và khai báo ở đây
 void compileParam(void)
 {
 	Object* param;
@@ -884,11 +866,6 @@ Type* compileIndexes(Type* arrayType)
 	return arrayType;
 }
 
-/**
- * @brief kích hoạt parser
- * @param fileName tên file vào
- * @return IO_SUCCESS nếu thành công, ngược lại IO_ERROR
- */
 int compile(char* fileName)
 {
 	if (openInputStream(fileName) == IO_ERROR)
@@ -897,16 +874,12 @@ int compile(char* fileName)
 	currentToken = NULL;
 	lookAhead = getValidToken();
 
-	// Khởi tạo bảng ký hiệu
 	initSymTab();
 
-	// Dịch chương trình
 	compileProgram();
 
-	// In chương trình để kiểm tra kết quả
 	printObject(symtab->program, 0);
 
-	// Giải phóng bảng ký hiệu
 	cleanSymTab();
 
 	free(currentToken);

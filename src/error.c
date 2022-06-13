@@ -48,12 +48,6 @@ struct ErrorMessage errors[29] = {
 		{ ERR_PARAMETERS_ARGUMENTS_INCONSISTENCY, "The number of arguments and the number of parameters are inconsistent." }
 };
 
-/**
- * @brief hàm thông báo lỗi
- * @param err mã lỗi
- * @param lineNo dòng lỗi
- * @param colNo cột lỗi
- */
 void error(ErrorCode err, int lineNo, int colNo)
 {
 	int i;
@@ -65,12 +59,6 @@ void error(ErrorCode err, int lineNo, int colNo)
 		}
 }
 
-/**
- *
- * @param tokenType
- * @param lineNo
- * @param colNo
- */
 void missingToken(TokenType tokenType, int lineNo, int colNo)
 {
 	printf("%d-%d:Missing %s\n", lineNo, colNo, tokenToString(tokenType));

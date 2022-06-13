@@ -28,10 +28,6 @@ Object* lookupObject(char* name)
 	return NULL;
 }
 
-/**
- * Kiểm tra tên có hợp lệ
- * @param name tên muốn kiểm tra
- */
 void checkFreshIdent(char* name)
 {
 	if (findObject(symtab->currentScope->objList, name) != NULL)

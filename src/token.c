@@ -35,12 +35,6 @@ struct
 		{ "TO",        KW_TO }
 };
 
-/**
- * @brief kiểm tra 1 xâu có phải là keyword đã cho hay không
- * @param kw keyword muốn kiểm tra
- * @param string xâu muốn kiểm tra
- * @return 1 nếu phải, ngược lại 0
- */
 int keywordEq(char* kw, char* string)
 {
 	while ((*kw != '\0') && (*string != '\0'))
@@ -52,11 +46,6 @@ int keywordEq(char* kw, char* string)
 	return ((*kw == '\0') && (*string == '\0'));
 }
 
-/**
- * @brief kiểm tra một xâu có phải từ khóa không
- * @param string xâu muốn kiểm tra
- * @return kiểu token, nếu không phải token trả về TK_NONE
- */
 TokenType checkKeyword(char* string)
 {
 	int i;
@@ -66,13 +55,6 @@ TokenType checkKeyword(char* string)
 	return TK_NONE;
 }
 
-/**
- * Tạo một token mới với kiểu và vị trí
- * @param tokenType kiểu token
- * @param lineNo vị trí dòng
- * @param colNo vị trí cột
- * @return token mới
- */
 Token* makeToken(TokenType tokenType, int lineNo, int colNo)
 {
 	Token* token = (Token*)malloc(sizeof(Token));
@@ -82,11 +64,6 @@ Token* makeToken(TokenType tokenType, int lineNo, int colNo)
 	return token;
 }
 
-/**
- * Chuyển kiểu token thành xâu
- * @param tokenType kiểu token
- * @return xâu biểu diễn kiểu token
- */
 char* tokenToString(TokenType tokenType)
 {
 	switch (tokenType)

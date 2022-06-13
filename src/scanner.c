@@ -14,29 +14,21 @@
 #include "error.h"
 #include "scanner.h"
 
-// dòng hiện tại
+
 extern int lineNo;
-// cột hiện tại
 extern int colNo;
-// ký tự hiện tại
 extern int currentChar;
 
 extern CharCode charCodes[];
 
 /***************************************************************/
 
-/**
- * @brief bỏ qua khoảng trắng
- */
 void skipBlank()
 {
 	while ((currentChar != EOF) && (charCodes[currentChar] == CHAR_SPACE))
 		readChar();
 }
 
-/**
- * @brief bỏ qua comment
- */
 void skipComment()
 {
 	int state = 0;
@@ -60,10 +52,6 @@ void skipComment()
 		error(ERR_END_OF_COMMENT, lineNo, colNo);
 }
 
-/**
- * @brief đọc vào một định danh
- * @return token keyword hoặc token định danh
- */
 Token* readIdentKeyword(void)
 {
 	Token* token = makeToken(TK_NONE, lineNo, colNo);
@@ -94,10 +82,6 @@ Token* readIdentKeyword(void)
 	return token;
 }
 
-/**
- * @brief đọc vào 1 số
- * @return token kiểu số
- */
 Token* readNumber(void)
 {
 	Token* token = makeToken(TK_NUMBER, lineNo, colNo);
@@ -114,10 +98,6 @@ Token* readNumber(void)
 	return token;
 }
 
-/**
- * @brief đọc vào một hằng kí tự
- * @return token kiểu kí tự
- */
 Token* readConstChar(void)
 {
 	Token* token = makeToken(TK_CHAR, lineNo, colNo);
@@ -154,10 +134,6 @@ Token* readConstChar(void)
 	}
 }
 
-/**
- * @brief đọc một token tính từ vị trí hiện tại
- * @return token đọc được
- */
 Token* getToken(void)
 {
 	Token* token;
@@ -200,13 +176,7 @@ Token* getToken(void)
 			readChar();
 			return makeToken(SB_LE, ln, cn);
 		}
-		else if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_GT))
-		{
-			readChar();
-			return makeToken(SB_NEQ, ln, cn);
-		}
-		else
-		{ return makeToken(SB_LT, ln, cn); }
+		else return makeToken(SB_LT, ln, cn);
 	case CHAR_GT:
 		ln = lineNo;
 		cn = colNo;
@@ -218,18 +188,9 @@ Token* getToken(void)
 		}
 		else return makeToken(SB_GT, ln, cn);
 	case CHAR_EQ:
-		ln = lineNo;
-		cn = colNo;
+		token = makeToken(SB_EQ, lineNo, colNo);
 		readChar();
-		if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_EQ))
-		{
-			readChar();
-			return makeToken(SB_EQ, ln, cn);
-		}
-		else
-		{
-			return makeToken(SB_ASSIGN, ln, cn);
-		}
+		return token;
 	case CHAR_EXCLAIMATION:
 		ln = lineNo;
 		cn = colNo;
@@ -264,9 +225,15 @@ Token* getToken(void)
 		readChar();
 		return token;
 	case CHAR_COLON:
-		token = makeToken(SB_COLON, lineNo, colNo);
+		ln = lineNo;
+		cn = colNo;
 		readChar();
-		return token;
+		if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_EQ))
+		{
+			readChar();
+			return makeToken(SB_ASSIGN, ln, cn);
+		}
+		else return makeToken(SB_COLON, ln, cn);
 	case CHAR_SINGLEQUOTE:
 		return readConstChar();
 	case CHAR_LPAR:
@@ -301,10 +268,6 @@ Token* getToken(void)
 	}
 }
 
-/**
- * @brief đọc vào 1 token hợp lệ (khác TK_NONE)
- * @return token đọc được
- */
 Token* getValidToken(void)
 {
 	Token* token = getToken();
@@ -319,10 +282,6 @@ Token* getValidToken(void)
 
 /******************************************************************/
 
-/**
- * In ra vị trí và loại token
- * @param token token muốn in ra vị trí và loại
- */
 void printToken(Token* token)
 {
 

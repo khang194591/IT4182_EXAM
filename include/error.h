@@ -9,7 +9,6 @@
 
 #include "token.h"
 
-// Các mã lỗi
 typedef enum
 {
 	ERR_END_OF_COMMENT,

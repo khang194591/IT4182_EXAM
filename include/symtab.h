@@ -9,18 +9,13 @@
 
 #include "token.h"
 
-// Phân loại kiểu
 enum TypeClass
 {
-	// Kiểu số nguyên
 	TP_INT,
-	// Kiểu ký tự
 	TP_CHAR,
-	// Kiểu mảng
 	TP_ARRAY
 };
 
-// Phân loại ký hiệu
 enum ObjectKind
 {
 	OBJ_CONSTANT,
@@ -38,11 +33,9 @@ enum ParamKind
 	PARAM_REFERENCE
 };
 
-
 struct Type_
 {
 	enum TypeClass typeClass;
-	// Chỉ dùng cho kiểu mảng
 	int arraySize;
 	struct Type_* elementType;
 };
@@ -50,7 +43,7 @@ struct Type_
 typedef struct Type_ Type;
 typedef struct Type_ BasicType;
 
-// Hằng số
+
 struct ConstantValue_
 {
 	enum TypeClass type;
@@ -116,7 +109,6 @@ typedef struct ProcedureAttributes_ ProcedureAttributes;
 typedef struct ProgramAttributes_ ProgramAttributes;
 typedef struct ParameterAttributes_ ParameterAttributes;
 
-// Thuộc tính của đối tượng trên bảng ký hiệu
 struct Object_
 {
 	char name[MAX_IDENT_LEN];
@@ -143,27 +135,19 @@ struct ObjectNode_
 
 typedef struct ObjectNode_ ObjectNode;
 
-// Phạm vi của một 1 block
 struct Scope_
 {
-	// Danh sách các đối tượng trong block
 	ObjectNode* objList;
-	// Hàm, thủ tục, chương trình tương ứng block
 	Object* owner;
-	// Phạm vi bao ngoài
 	struct Scope_* outer;
 };
 
 typedef struct Scope_ Scope;
 
-// Bảng ký hiệu
 struct SymTab_
 {
-	// Chương trình chính
 	Object* program;
-	// Phạm vi hiện tại
 	Scope* currentScope;
-	// Các đối tượng toàn cục như WRITEI, WRITEC,  WRITELN, READI, READC
 	ObjectNode* globalObjectList;
 };
 
