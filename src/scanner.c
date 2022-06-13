@@ -160,9 +160,15 @@ Token* getToken(void)
 		readChar();
 		return token;
 	case CHAR_TIMES:
-		token = makeToken(SB_TIMES, lineNo, colNo);
+		ln = lineNo;
+		cn = colNo;
 		readChar();
-		return token;
+		if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_TIMES))
+		{
+			readChar();
+			return makeToken(SB_EXPONENT, ln, cn);
+		}
+		else return makeToken(SB_TIMES, ln, cn);
 	case CHAR_SLASH:
 		token = makeToken(SB_SLASH, lineNo, colNo);
 		readChar();

@@ -1,0 +1,10 @@
+PROGRAM  BAI2;  (* Chuyển điểm hệ 10 sang hệ 4 *)
+
+VAR  N : INTEGER;
+     CH : CHAR;
+
+BEGIN
+   N := READI;
+   SWITCH N
+
+END.  (* Chuyển điểm hệ 10 sang hệ 4 *)

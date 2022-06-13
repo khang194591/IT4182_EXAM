@@ -77,6 +77,8 @@ void compileWhileSt(void);
 
 void compileForSt(void);
 
+void compileSwitchST(void);
+
 void compileArgument(Object* param);
 
 void compileArguments(ObjectNode* paramList);
@@ -92,6 +94,10 @@ void compileExpression3(void);
 Type* compileTerm(void);
 
 void compileTerm2(void);
+
+Type* compileExponent(void);
+
+void compileExponent2(void);
 
 Type* compileFactor(void);
 

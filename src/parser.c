@@ -380,7 +380,6 @@ void compileParam(void)
 {
 	Object* param;
 	Type* type;
-
 	switch (lookAhead->tokenType)
 	{
 	case TK_IDENT:
@@ -439,6 +438,9 @@ void compileStatement(void)
 		break;
 	case KW_FOR:
 		compileForSt();
+		break;
+	case KW_SWITCH:
+		compileSwitchST();
 		break;
 		// EmptySt needs to check FOLLOW tokens
 	case SB_SEMICOLON:
@@ -558,6 +560,25 @@ void compileForSt(void)
 
 	eat(KW_DO);
 	compileStatement();
+}
+
+void compileSwitchST(void)
+{
+	eat(KW_SWITCH);
+	compileExpression();
+	eat(KW_BEGIN);
+	while (lookAhead->tokenType != KW_DEFAULT)
+	{
+		eat(KW_CASE);
+		compileConstant();
+		eat(SB_COLON);
+		compileStatement();
+	}
+	eat(KW_DEFAULT);
+	eat(SB_COLON);
+	compileStatement();
+	eat(KW_END);
+	eat(SB_SEMICOLON);
 }
 
 void compileArgument(Object* param)
@@ -697,7 +718,6 @@ Type* compileExpression2(void)
 	return type;
 }
 
-
 void compileExpression3(void)
 {
 	Type* type;
@@ -742,7 +762,7 @@ Type* compileTerm(void)
 {
 	Type* type;
 
-	type = compileFactor();
+	type = compileExponent();
 	compileTerm2();
 
 	return type;
@@ -769,6 +789,51 @@ void compileTerm2(void)
 		// check the FOLLOW set
 	case SB_PLUS:
 	case SB_MINUS:
+	case KW_TO:
+	case KW_DO:
+	case SB_RPAR:
+	case SB_COMMA:
+	case SB_EQ:
+	case SB_NEQ:
+	case SB_LE:
+	case SB_LT:
+	case SB_GE:
+	case SB_GT:
+	case SB_RSEL:
+	case SB_SEMICOLON:
+	case KW_END:
+	case KW_ELSE:
+	case KW_THEN:
+		break;
+	default:
+		error(ERR_INVALID_TERM, lookAhead->lineNo, lookAhead->colNo);
+	}
+}
+
+Type* compileExponent(void)
+{
+	Type* type;
+	type = compileFactor();
+	compileExponent2();
+	return type;
+}
+
+void compileExponent2(void)
+{
+	Type* type;
+	switch (lookAhead->tokenType)
+	{
+	case SB_EXPONENT:
+		eat(SB_EXPONENT);
+		type = compileFactor();
+		checkIntType(type);
+		compileExponent2();
+		break;
+		// check the FOLLOW set
+	case SB_PLUS:
+	case SB_MINUS:
+	case SB_TIMES:
+	case SB_SLASH:
 	case KW_TO:
 	case KW_DO:
 	case SB_RPAR:
