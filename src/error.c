@@ -33,6 +33,7 @@ struct ErrorMessage errors[29] = {
 		{ ERR_INVALID_COMPARATOR,                 "A comparator expected." },
 		{ ERR_INVALID_EXPRESSION,                 "Invalid expression." },
 		{ ERR_INVALID_TERM,                       "Invalid term." },
+		{ ERR_INVALID_EXPONENT,                       "Invalid exponent." },
 		{ ERR_INVALID_FACTOR,                     "Invalid factor." },
 		{ ERR_INVALID_LVALUE,                     "Invalid lvalue in assignment." },
 		{ ERR_INVALID_ARGUMENTS,                  "Wrong arguments." },

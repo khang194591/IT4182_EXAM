@@ -6,5 +6,8 @@ VAR  N : INTEGER;
 BEGIN
    N := READI;
    SWITCH N
+   BEGIN
+    CASE
+
 
 END.  (* Chuyển điểm hệ 10 sang hệ 4 *)

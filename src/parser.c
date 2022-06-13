@@ -851,7 +851,7 @@ void compileExponent2(void)
 	case KW_THEN:
 		break;
 	default:
-		error(ERR_INVALID_TERM, lookAhead->lineNo, lookAhead->colNo);
+		error(ERR_INVALID_EXPONENT, lookAhead->lineNo, lookAhead->colNo);
 	}
 }
 
